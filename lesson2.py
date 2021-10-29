@@ -1,5 +1,2 @@
-print ("My first code")
-
-"Text"
-
-12345
+print(dir(__builtins__))
+# New comment
