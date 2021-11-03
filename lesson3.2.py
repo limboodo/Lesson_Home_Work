@@ -3,8 +3,7 @@ b = "замена в строке"
 c = f'Это строка в которую {a} новую строку'
 print(c)
 
-x = c.replace(a, b)
-print(x)
+print(c.replace(a, b))
 
 print(len(c))
 
