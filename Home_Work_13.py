@@ -10,6 +10,8 @@ def arithmetic():
         d = a * b
     elif c == '/':
         d = a / b
+    else:
+        d = "Незвестная операция"
     return d
 
 
