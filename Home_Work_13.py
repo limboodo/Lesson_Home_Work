@@ -1,19 +1,16 @@
-a = int(input('Введите первое число: '))
-b = int(input('Введите второе число: '))
-c = input('Введите операцию: ')
-
-
-def arithmetic(a, b, c):
+def arithmetic():
+    a = int(input('Введите первое число: '))
+    b = int(input('Введите второе число: '))
+    c = input('Введите операцию: ')
     if c == '+':
-        print(a + b)
+        d = a + b
     elif c == '-':
-        print(a - b)
+        d = a - b
     elif c == '*':
-        print(a * b)
+        d = a * b
     elif c == '/':
-        print(a / b)
-    else:
-        print("Неизвестная операция")
+        d = a / b
+    return d
 
 
-arithmetic(a, b, c)
+print(arithmetic())
