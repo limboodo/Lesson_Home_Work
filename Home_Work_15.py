@@ -16,40 +16,47 @@
 программа возвращает текст "Вы в системе!" или "Не правильное Имя или Пароль"
 '''
 
-user = {
+username = input('Введите логин: ')
+password = input('Введите пароль: ')
+users = {
     'Alex': 123,
     'Jon': 321,
     'Lex': 123}
-login_1 = (input('Введите логин: '), int(input('Введите пароль: ')))
 
 
-def login() -> bool:
-    def check_password() -> bool:
-        if login_1 in user.items():
-            return True
-        else:
+def login(func):
+    def chek(func):
+        if not check_password(username, password):
+            func()
+            return False
+        if not authenticate():
             return False
 
-    def authenticate() -> bool:
-        if check_password() == True:
-            return True
-        else:
-            return False
-
-    if authenticate() == True:
-        print("Вы в системе!")
-        exit()
-    else:
-        print("Не правильное Имя или Пароль!")
+    return chek(func)
 
 
-print(login())
+def check_password(_username: str, _password: str) -> bool:
+    if (username, password) in users.items():
+        return True
+
+
+def authenticate() -> bool:
+    if check_password(username, password):
+        print('Вы в системе!')
+        return True
+
+
+@login
+def decorator():
+    print('Не правильное Имя или Пароль')
+
+
 i = 4
 while i > 1:
-    if login_1 in user:
+    if authenticate():
         break
     i -= 1
     print(f'Оталось попыток: {i}')
-    login_1 = (input('Введите логин: '), int(input('Введите пароль: ')))
+    username, password = (input('Введите логин: '), (input('Введите пароль: ')))
 else:
     print('Попытки истекли!')
