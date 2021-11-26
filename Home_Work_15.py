@@ -19,9 +19,9 @@
 username = input('Введите логин: ')
 password = input('Введите пароль: ')
 users = {
-    'Alex': 123,
-    'Jon': 321,
-    'Lex': 123}
+    'Alex': "123",
+    'Jon': "321",
+    'Lex': "123"}
 
 
 def login(func):
