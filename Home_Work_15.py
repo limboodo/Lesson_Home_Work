@@ -21,7 +21,7 @@ from functools import wraps
 
 users = {
     'Alex': "123",
-    'Jon': "321",
+    'Pep': "008",
     'Lex': "123"}
 
 
