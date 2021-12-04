@@ -39,7 +39,8 @@ def login_decorator(func):
 
 
 def check_password(username: str, password: str) -> bool:
-    return all((username, password)) and users.get(username, None) == password
+    if (username, password) in users.items():
+        return True
 
 
 def authenticate() -> bool:
