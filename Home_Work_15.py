@@ -16,47 +16,63 @@
 программа возвращает текст "Вы в системе!" или "Не правильное Имя или Пароль"
 '''
 
-username = input('Введите логин: ')
-password = input('Введите пароль: ')
+import argparse
+from functools import wraps
+
 users = {
     'Alex': "123",
     'Jon': "321",
     'Lex': "123"}
 
 
-def login(func):
-    def chek(func):
+def login_decorator(func):
+    @wraps(func)
+    def wrapper(username, password):
         if not check_password(username, password):
-            func()
+            print('Не правильное Имя или Пароль')
             return False
         if not authenticate():
             return False
+        return func(username, password)
 
-    return chek(func)
+    return wrapper
 
 
-def check_password(_username: str, _password: str) -> bool:
-    if (username, password) in users.items():
-        return True
+def check_password(username: str, password: str) -> bool:
+    return all((username, password)) and users.get(username, None) == password
 
 
 def authenticate() -> bool:
-    if check_password(username, password):
-        print('Вы в системе!')
-        return True
+    print('Вы в системе!')
+    return True
 
 
-@login
-def decorator():
-    print('Не правильное Имя или Пароль')
+@login_decorator
+def login(_username: str, _password: str) -> bool:
+    return True
 
 
-i = 4
-while i > 1:
-    if authenticate():
-        break
-    i -= 1
-    print(f'Оталось попыток: {i}')
-    username, password = (input('Введите логин: '), (input('Введите пароль: ')))
-else:
-    print('Попытки истекли!')
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-u", "--username", action="store", help="Username")
+    parser.add_argument("-p", "--password", action="store", help='Password')
+    args = parser.parse_args()
+    return args.username, args.password
+
+
+if __name__ == "__main__":
+    username, password = parse_args()
+    if username and password:
+        if login(username, password):
+            exit()
+        else:
+            username, password = None, None
+    i = 3
+    while i > 0:
+        if login(username or input('Введите ваш логин:'),
+                 password or input('Введите ваш пароль:')):
+            break
+        i -= 1
+        print(f'Оталось попыток: {i}')
+    else:
+        print('Попытки истекли!')
